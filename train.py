@@ -160,7 +160,7 @@ def setup_training_options(
     desc += f'-{cfg}'
 
     cfg_specs = {
-        'auto':          dict(ref_gpus=-1, kimg=10000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=2), # populated dynamically based on 'gpus' and 'res'
+        'auto':          dict(ref_gpus=-1, kimg=1000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=2), # populated dynamically based on 'gpus' and 'res'
         'stylegan2':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
         'paper256':      dict(ref_gpus=-1,  kimg=1000,  mb=-1, mbstd=-1,  fmaps=0.5, lrate=0.0025, gamma=1,    ema=-1,  ramp=0.05, map=2),
         'paper512':      dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=1,   lrate=0.0025, gamma=0.5,  ema=20,  ramp=None, map=8),
@@ -175,7 +175,7 @@ def setup_training_options(
         desc += f'{gpus:d}'
         spec.ref_gpus = gpus
 #        spec.mb = max(min(gpus * min(4096 // res, 32), 64), gpus) # keep gpu memory consumption at bay
-        spec.mb = max(min(gpus * min(4096 // res, 8), 8), gpus) # keep gpu memory consumption at bay
+        spec.mb = max(min(gpus * min(4096 // res, 1), 1), gpus) # keep gpu memory consumption at bay
         spec.mbstd = min(spec.mb // gpus, 4) # other hyperparams behave more predictably if mbstd group size remains fixed
         spec.fmaps = 1 if res >= 512 else 0.5
         spec.lrate = 0.002 if res >= 1024 else 0.0025
