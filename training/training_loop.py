@@ -1,4 +1,3 @@
-﻿# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
 #
 # NVIDIA CORPORATION and its licensors retain all intellectual property
 # and proprietary rights in and to this software, related documentation
@@ -100,10 +99,12 @@ def training_loop(
     G_reg_interval          = 4,        # How often the perform regularization for G? Ignored if lazy_regularization=False.
     D_reg_interval          = 16,       # How often the perform regularization for D? Ignored if lazy_regularization=False.
     total_kimg              = 25000,    # Total length of the training, measured in thousands of real images.
-    kimg_per_tick           = 4,        # Progress snapshot interval.
-    image_snapshot_ticks    = 50,       # How often to save image snapshots? None = only save 'reals.png' and 'fakes-init.png'.
-    network_snapshot_ticks  = 50,       # How often to save network snapshots? None = only save 'networks-final.pkl'.
-    resume_pkl              = None,     # Network pickle to resume training from.
+    kimg_per_tick           = 10,        # Progress snapshot interval.
+    image_snapshot_ticks    = 1,       # How often to save image snapshots? None = only save 'reals.png' and 'fakes-init.png'.
+    network_snapshot_ticks  = 1,       # How often to save network snapshots? None = only save 'networks-final.pkl'.
+    resume_pkl              = None,     # Network pickle to resume training from, None = train from scratch.
+    resume_kimg             = 15000,      # Assumed training progress at the beginning. Affects reporting and training schedule.
+    resume_time             = 0.0,      # Assumed wallclock time at the beginning. Affects reporting.
     abort_fn                = None,     # Callback function for determining whether to abort training.
     progress_fn             = None,     # Callback function for updating training progress.
 ):
@@ -302,6 +303,7 @@ def training_loop(
             if image_snapshot_ticks is not None and (done or cur_tick % image_snapshot_ticks == 0):
                 grid_fakes = Gs.run(grid_latents, grid_labels, is_validation=True, minibatch_size=minibatch_gpu)
                 save_image_grid(grid_fakes, os.path.join(run_dir, f'fakes{cur_nimg // 1000:06d}.png'), drange=[-1,1], grid_size=grid_size)
+
             if network_snapshot_ticks is not None and (done or cur_tick % network_snapshot_ticks == 0):
                 pkl = os.path.join(run_dir, f'network-snapshot-{cur_nimg // 1000:06d}.pkl')
                 with open(pkl, 'wb') as f:
@@ -322,5 +324,4 @@ def training_loop(
     print('Exiting...')
     summary_log.close()
     training_set.close()
-
-#----------------------------------------------------------------------------
+    
