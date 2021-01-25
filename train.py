@@ -36,22 +36,22 @@ def setup_training_options(
     # Training dataset.
     data       = None, # Training dataset (required): <path>
     res        = None, # Override dataset resolution: <int>, default = highest available
-    mirror     = None, # Augment dataset with x-flips: <bool>, default = False
+    mirror     = True, # Augment dataset with x-flips: <bool>, default = False
 
     # Metrics (not included in desc).
-    metrics    = None, # List of metric names: [], ['fid50k_full'] (default), ...
+    metrics    = [], # List of metric names: [], ['fid50k_full'] (default), ...
     metricdata = None, # Metric dataset (optional): <path>
 
     # Base config.
-    cfg        = None, # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar', 'cifarbaseline'
+    cfg        ='stylegan2', # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar', 'cifarbaseline'
     gamma      = None, # Override R1 gamma: <float>, default = depends on cfg
-    kimg       = None, # Override training duration: <int>, default = depends on cfg
+    kimg       = 5, # Override training duration: <int>, default = depends on cfg
 
     # Discriminator augmentation.
-    aug        = None, # Augmentation mode: 'ada' (default), 'noaug', 'fixed', 'adarv'
+    aug        =  'ada' , # Augmentation mode: 'ada' (default), 'noaug', 'fixed', 'adarv'
     p          = None, # Specify p for 'fixed' (required): <float>
     target     = None, # Override ADA target for 'ada' and 'adarv': <float>, default = depends on aug
-    augpipe    = None, # Augmentation pipeline: 'blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc' (default), ..., 'bgcfnc'
+    augpipe    =  'bgc', # Augmentation pipeline: 'blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc' (default), ..., 'bgcfnc'
 
     # Comparison methods.
     cmethod    = None, # Comparison method: 'nocmethod' (default), 'bcr', 'zcr', 'pagan', 'wgangp', 'auxrot', 'spectralnorm', 'shallowmap', 'adropout'
