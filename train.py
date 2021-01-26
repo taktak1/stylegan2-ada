@@ -34,26 +34,26 @@ def setup_training_options():
 ###########################################################################################################################
 #                                                 EDIT THESE!                                                             #
 ###########################################################################################################################
-    outdir = '/content/drive/My Drive/Colab Notebooks/styleganada-results/'
-    gpus = None # Number of GPUs: <int>, default = 1 gpu
-    snap = 1 # Snapshot interval: <int>, default = 50 ticks
+    outdir = '/content/stylegan2-ada/training-runs/'
+    gpus = 1  # Number of GPUs: <int>, default = 1 gpu
+    snap = 3 # Snapshot interval: <int>, default = 50 ticks
     seed = 1000
-    data = '/content/datasets/custom/'# Training dataset (required): <path>
-    res = None# Override dataset resolution: <int>, default = highest available
-    mirror =True# Augment dataset with x-flips: <bool>, default = False
-    metrics = []# List of metric names: [], ['fid50k_full'] (default), ...
-    metricdata = None# Metric dataset (optional): <path>
-    cfg = 'stylegan2'# Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar', 'cifarbaseline'
-    gamma = None# Override R1 gamma: <float>, default = depends on cfg
-    kimg = 10000# Override training duration: <int>, default = depends on cfg
+    data = '/content/datasets/ootsuka13lem/'# Training dataset (required): <path>
+    res = None # Override dataset resolution: <int>, default = highest available
+    mirror =True # Augment dataset with x-flips: <bool>, default = False
+    metrics = [] # List of metric names: [], ['fid50k_full'] (default), ...
+    metricdata = None # Metric dataset (optional): <path>
+    cfg = 'stylegan2' # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar', 'cifarbaseline'
+    gamma = None # Override R1 gamma: <float>, default = depends on cfg
+    kimg = 15 # Override training duration: <int>, default = depends on cfg
     aug = 'ada' # Augmentation mode: 'ada' (default), 'noaug', 'fixed', 'adarv'
-    p = None# Specify p for 'fixed' (required): <float>
+    p = None # Specify p for 'fixed' (required): <float>
     target = None # Override ADA target for 'ada' and 'adarv': <float>, default = depends on aug
     augpipe = 'bgc'# Augmentation pipeline: 'blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc' (default), ..., 'bgcfnc'
     cmethod = None # Comparison method: 'nocmethod' (default), 'bcr', 'zcr', 'pagan', 'wgangp', 'auxrot', 'spectralnorm', 'shallowmap', 'adropout'
     dcap = None # Multiplier for discriminator capacity: <float>, default = 1
     augpipe = 'bgc'
-    resume = '/content/stylegan2-ffhq-config-f.pkl'# Load previous network: 'noresume' (default), 'ffhq256', 'ffhq512', 'ffhq1024', 'celebahq256', 'lsundog256', <file>, <url>
+    resume = '/content/stylegan2-ada/network-snapshot-000005.pkl'# Load previous network: 'noresume' (default), 'ffhq256', 'ffhq512', 'ffhq1024', 'celebahq256', 'lsundog256', <file>, <url>
     freezed = None # Freeze-D: <int>, default = 0 discriminator layers
 
 
